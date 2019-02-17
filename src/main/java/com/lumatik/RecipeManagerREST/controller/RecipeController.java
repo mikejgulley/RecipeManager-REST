@@ -42,7 +42,6 @@ public class RecipeController {
 
     @PostMapping("/recipes")
     ResponseEntity<?> newRecipe(@RequestBody Recipe newRecipe) throws URISyntaxException {
-
         Resource<Recipe> recipeResource = recipeResourceAssembler
                 .toResource(recipeRepository.save(newRecipe));
 
