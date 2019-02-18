@@ -27,8 +27,28 @@ public class RecipeResourceAssembler implements ResourceAssembler<Recipe, Resour
         // Response from this method with be formatted using HAL - Hypertext Application Language
         // Having all these links allows REST services to evolve over time. Existing links are maintained,
         // while new ones can be added and new vs. legacy clients won't break.
-        return new Resource<>(recipe,
+        Resource<Recipe> recipeResource = new Resource<>(recipe,
                 linkTo(methodOn(RecipeController.class).one(recipe.getId())).withSelfRel(),
                 linkTo(methodOn(RecipeController.class).all()).withRel("recipes"));
-    }
+
+        // Hypermedia as the Engine of Application State. Instead of clients parsing the payload,
+        // give them links to signal valid actions. Decouple state-based actions from the payload of data.
+        // In other words, when ARCHIVE and UNARCHIVE are valid actions, dynamically add them to the list of links.
+        // Clients only need show users the corresponding buttons when the links exist.
+        // This decouples clients from having to know WHEN such actions are valid, reducing the risk of the server
+        // and its clients getting out of sync on the logic of state transitions.
+            if (recipe.getStatus() == Status.ACTIVE) {
+                recipeResource.add(
+                        linkTo(methodOn(RecipeController.class)
+                                .archive(recipe.getId())).withRel("archive")
+                );
+            } else {
+                recipeResource.add(
+                        linkTo(methodOn(RecipeController.class)
+                                .unarchive(recipe.getId())).withRel("unarchive")
+                );
+            }
+
+            return recipeResource;
+        }
 }

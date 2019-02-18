@@ -1,6 +1,7 @@
 package com.lumatik.RecipeManagerREST.repository;
 
 import com.lumatik.RecipeManagerREST.model.Recipe;
+import com.lumatik.RecipeManagerREST.model.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,10 @@ public class LoadDatabase {
                     "Ze besta pizza evaaaa!")));
             log.info("Preloading " + recipeRepository.save(new Recipe("Stuffed Peppers",
                     "Rockin' stuffed peppers sure to be a hit at a dinner party.")));
+            log.info("Preloading " + recipeRepository.save(new Recipe("Meatballs",
+                    "That's a spicy meataball!", Status.ARCHIVED)));
+            log.info("Preloading " + recipeRepository.save(new Recipe("Healthy Chicken Stir Fry",
+                    "A healthy take on stir fry.", Status.ARCHIVED)));
         };
     }
 }
