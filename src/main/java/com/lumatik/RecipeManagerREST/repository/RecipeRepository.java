@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
+// JpaRepository implements Paging and Sorting Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     // No need to implement or declare anything here
     // Already supports
