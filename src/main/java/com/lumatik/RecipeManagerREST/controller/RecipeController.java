@@ -108,7 +108,7 @@ public class RecipeController {
         return ResponseEntity
                 .status(HttpStatus.METHOD_NOT_ALLOWED)
                 .body(new VndErrors.VndError("Method not allowed",
-                        "You cannot archive a method that is already archived."));
+                        "You cannot archive a recipe that is already archived."));
     }
 
     @ApiOperation(value = "Unarchive a recipe", response = ResponseEntity.class)
@@ -126,6 +126,6 @@ public class RecipeController {
         return ResponseEntity
                 .status(HttpStatus.METHOD_NOT_ALLOWED)
                 .body(new VndErrors.VndError("Method not allowed",
-                        "You cannot unarchive a method that is already active."));
+                        "You cannot unarchive a recipe that is already active."));
     }
 }
